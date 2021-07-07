@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document</title>
+
+</head>
+
+<body>
+    <select id="start">출발역</select>
+    <select id="end">도착역</select>
+    <label><input value=1250 id="adult" type="radio">성인</label>
+    <label><input value=750 id="teen" type="radio">청소년</label>
+    <label><input value=450 id="child" type="radio">어린이</label>
+    <button onclick="calculate();">요금계산</button>
+
+    <div id="output" style="width: 100%; height:150px; border: 2px solid black; overflow-y: auto; "></div>
+    <script>
+        const subwayList = ["영등포구구청역", "당산역", "합정역", "홍대입구역", "신촌역", "이대역", "아현역", "충정로역", "시청역", "을지로3가역", "을지로4가역",
+            "동대문역사문화공원역", "신당역", "상왕십리역", "왕십리역", "한양대역", "뚝섬역", "성수역", "건대입구역", "구의역", "강변역", "잠실나루역", "잠실역",
+            "종합운동장역",
+            "삼성역", "선릉역", "역삼역", "강남역", "서초역", "방배역", "사당역", "낙성대역", "서울대입구역", "봉천역", "신림역", "신대방역", "구로디지털단지역",
+            "대림역",
+            "신도림역", "문래역"
+        ];
+
+        const intervalDistance = 3170;
+        //성인일반 - 기본운임 : 10km 이내 - 1250원
+        //청소년 - 기본운임 : 10km 이내 - 720원
+        //어린이 - 기본운임 : 10km 이내 - 450원
+
+        //[추가운임]
+        //10~50km 이내 - 5km 마다 100원 추가
+        //50km 초가 - 8km 마다 100원 추가
+
+        function subwayload() {
+            var h = [];
+            for (var idx in subwayList) {
+                h.push(`<option value = "${idx}">${subwayList[idx]}</option>`)
+            };
+            document.getElementById("start").innerHTML = h.join();
+            document.getElementById("end").innerHTML = h.join();
+
+        }
+        subwayload();
+
+
+        //계산하는 함수 구하기
+        function calculate() {
+            //명칭 정리..
+            //옵션의 value값을 활용해서 출발과 도착지점의 숫자
+            //start와 end 의 함수...
+            const start = parseInt(document.getElementById("start").value);
+            const end = parseInt(document.getElementById("end").value);
+            //만약 start와 end 같을 경우 div창에 알림 뜨도록...
+            const output = document.getElementById("output")
+            
+            if (start == end) {
+                return output.insertAdjacentHTML("beforeend", '<p>출발역과 도착역이 같습니다.</p>')
+            };
+
+            //역 사이 갯수 정의. 0으로
+            //전체길이 - start + end
+            if (end<start){
+                var distance = 3.17*(end - start);
+            }else { var distance = 3.17*(subwayList.length - start + end)};
+
+
+            //calculateSubwayCost구하기..
+            function calculateSubwayCost (){
+
+            }
+        };
+        calculate();
+    </script>
+</body>
+
+</html>
